@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Configure Page</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background: #0a5c5c;
+        font-family: 'Fira Code';
+    }
+
+    .form-wrap {
+        width: 700px;
+        background: #1C1C1C;
+        padding: 50px 20px;
+        box-sizing: border-box;
+        position: fixed;
+        border-radius: 20px 20px 20px 20px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    h1 {
+        text-align: center;
+        color: #FFFF;
+        font-weight: normal;
+        margin-top: -20px;
+        margin-bottom: 20px;
+    }
+
+    h6 {
+        text-align: left;
+        margin-bottom: 10px;
+        margin-right: 1px;
+        font: 20px Courier;
+        color: #FF8C00
+    }
+
+    input {
+        font-family: 'Fira Code';
+        width: 100%;
+        background: none;
+        border: 1px solid #FFFF;
+        border-radius: 3px;
+        padding: 6px 15px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        font-size: 30px;
+        color: #FFFF;
+    }
+
+    input[type="submit"] {
+        background: #0A5C5C;
+        margin-bottom: 1px;
+        border: 0;
+        font-size: 35px;
+        cursor: pointer;
+        color: #FFFF;
+    }
+
+    input[type="submit"]:hover {
+        background: #FF8C00;
+        transition: .7s;
+    }
+
+    ::placeholder {
+        color: #696969;
+    }
+</style>
+
+<body>
+
+    <div class="form-wrap">
+
+        <form name="form" action="" methond="POST">
+
+            <h1>Configure SMCCD
+                <hr>
+            </h1>
+            <input type="text" title="Network Name" id="ssid" name="SSID" placeholder="Network Name">
+            <input type="password" title="Password" id="password" name="PASSWORD" placeholder="Password">
+            <input type="text" title="IP Broker" id="br_addr" name="BROKER ADDRESS" value="192.168.1.21"
+                placeholder="Broker Address">
+            <input type="text" title="Port" id="port" name="BROKER PORT" value="1883" placeholder="Port">
+            <input type="text" title="Broker Username" id="br_usr" name="BROKER USER" placeholder="Broker Username">
+            <input type="password" title="Broker Password" id="br_pass" name="BROKER PASS"
+                placeholder="Broker Password">
+            <input type="text" title="Subscribe In" id="subs" name="TOPIC SUB" value="Home/CPA/SMCCD/input"
+                placeholder="Subscribe In">
+            <input type="text" title="Publish In" id="pubs" name="TOPIC PUB" value="Home/CPA/SMCCD/output"
+                placeholder="Publish In">
+            <h6>&#8226;	 Passwords must be at least 6 characters long.<br> &#8226; In case of service without password, leave the
+                field blank.</h6>
+            <input type="submit" name="SUBMIT" onclick="return validar()" value="Send">
+
+        </form>
+
+    </div>
+
+</body>
+<footer>
+    <script>
+        function validar() {
+            var ssid = form.ssid.value;
+            var password = form.password.value;
+            var br_addr = form.br_addr.value;
+            var port = form.port.value;
+            var br_usr = form.br_usr.value;
+            var br_pass = form.br_pass.value;
+            var subs = form.subs.value;
+            var pubs = form.pubs.value;
+
+            if (ssid.length == 0) {
+                alert("Fill the field \'Network Name\'")
+                form.ssid.focus();
+                return false;
+            }
+            if (password.length != 0 && password.length < 6) {
+                alert("Fill the field \'Password\' correctly");
+                form.password.focus();
+                return false;
+            }
+            if (br_addr.length == 0) {
+                alert("Fill the field \'Broker Address\' correctly");
+                form.br_addr.focus();
+                return false;
+            }
+            if (port.length == 0) {
+                alert("Fill the field \'Port\' correctly");
+                form.port.focus();
+                return false;
+            }
+            if (br_pass.length > 0 && br_usr.length == 0) {
+                alert("Fill the field \'Broker Username\'")
+                form.br_usr.focus();
+                return false;
+            }
+            if (br_pass.length < 6 && br_pass.length > 0) {
+                alert("Fill the field \'Broker Password\' correctly")
+                form.br_pass.focus();
+                return false;
+            }
+            if (subs.length == 0) {
+                alert("Fill the field \'Subscribe In\' correctly");
+                form.subs.focus();
+                return false;
+            }
+            if (pubs.length == 0) {
+                alert("Fill the field \'Publish In\' correctly");
+                form.pubs.focus();
+                return false;
+            }
+
+
+        }
+    </script>
+
+</footer>
+
+</html>
