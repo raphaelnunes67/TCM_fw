@@ -61,7 +61,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   
   else if (cb_message == "GS"){ESP_Sleep();}
   
-  else if (cb_message == "VAU"){OTA_https_upgrate();}
+  else if (cb_message == "VAU"){OTA_https_upgrade();}
   
   else if (cb_message == "SI"){Send_system_info();}
   
