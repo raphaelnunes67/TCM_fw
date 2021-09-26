@@ -49,7 +49,7 @@ MedianFilter filter (31,0);
 void SetPins() {
   pinMode(WIFI_LED_pin, OUTPUT); digitalWrite(WIFI_LED_pin, HIGH);
   pinMode(MQTT_LED_pin, OUTPUT); digitalWrite(MQTT_LED_pin, HIGH);
-  pinMode(SOLENOID_pin, OUTPUT); digitalWrite(SOLENOID_pin, LOW);
+  pinMode(SOLENOID_pin, OUTPUT); digitalWrite(SOLENOID_pin, HIGH);
   pinMode(FLOATSWITCH_pin, INPUT);
   pinMode(WL_ECHO_pin, INPUT);
   pinMode(WL_TRIG_pin, OUTPUT); digitalWrite(WL_TRIG_pin, LOW); 
