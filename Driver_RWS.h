@@ -41,7 +41,7 @@ String GetWaterLevel() {
   o = filter.out();
   }
 #ifdef DEBUG
-  Serial.println(o);
+  //Serial.println(o);
 #endif
   return String(o / US_ROUNDTRIP_CM);
 }

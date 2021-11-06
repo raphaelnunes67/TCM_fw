@@ -1,7 +1,7 @@
 /*
   ****************************************
            GeneralDefinitions.h
-   Script para ESP8266MOD (Cisterna)
+   Script para ESP8266MOD (Caixa D'água)
    Autor: Raphael Nunes
    E-mail: raphaelnunes67@gmail.com
   ****************************************

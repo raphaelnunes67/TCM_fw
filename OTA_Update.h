@@ -9,13 +9,13 @@
 
 /*
  ******************************************************************
-                      OTA Arduino IDE upgrade
+                      OTA Arduino IDE UPDATE
  ******************************************************************
 */
 String s;
 
-void OTA_arduino_upgrade() {
-  ArduinoOTA.setHostname("SMCC-ESP8266");
+void OTA_arduino_update() {
+  ArduinoOTA.setHostname("TCM-ESP8266");
   ArduinoOTA.onStart([]() {
     digitalWrite(WIFI_LED_pin, HIGH);
     digitalWrite(MQTT_LED_pin, HIGH);
@@ -87,18 +87,19 @@ void OTA_arduino_upgrade() {
 
 #ifdef DEBUG
   Serial.println("Atualização via OTA disponível.");
-  Serial.println("Hostname: SMCC-ESP8266");
+  Serial.println("Hostname: TCM-ESP8266");
 #endif
 }
 // END - OTA Arduino IDE Update
 
 /*
  ******************************************************************
-                         OTA HTTPS upgrade
+                         OTA HTTPS UPDATE
  ******************************************************************
 */
 char SaveTime_upgrade(char intORfw);
-void OTA_https_upgrate() {
+
+void OTA_https_update() {
   //client.disconnect(); // Turn off MQTT comunication
   //digitalWrite(MQTT_LED_pin, HIGH); // Turn off LED MQTT notification
   WiFiClientSecure client_http;
@@ -206,7 +207,7 @@ void OTA_https_upgrate() {
   //END - HTTPS OTA Upgrade definitions
 
   /* ******************************************************************************
-   * *                         FS ATUALIZATION                                    *
+   * *                         FS UPDATE                                          *
    * ******************************************************************************
   */
 
@@ -229,8 +230,8 @@ void OTA_https_upgrate() {
       int pFrom = content_int_upgrade_link.indexOf("<A HREF=\"") + 9;
       int pTo = content_int_upgrade_link.indexOf("\">here</A>");
       int_link = content_int_upgrade_link.substring(pFrom, pTo);
+      http.begin(client_http, int_link);  // Just Upgrade Interface
       httpCode = http.GET();
-      http.begin(content_int_upgrade_link, int_link);  // Just Upgrade Interface
       content_int_upgrade_link = http.getString();
     }
     // END - Find a direct link
@@ -276,7 +277,7 @@ void OTA_https_upgrate() {
   // END - Upgrade interface
 
   /* ******************************************************************************
-   * *                         FIRMWARE ATUALIZATION                              *
+   * *                         FIRMWARE UPDATE                                    *
    * ******************************************************************************
   */
   if (fw_new_ver != fw_ver) {
@@ -298,8 +299,8 @@ void OTA_https_upgrate() {
       int pFrom = content_fw_upgrade_link.indexOf("<A HREF=\"") + 9;
       int pTo = content_fw_upgrade_link.indexOf("\">here</A>");
       fw_link = content_fw_upgrade_link.substring(pFrom, pTo);
+      http.begin(client_http, fw_link);
       httpCode = http.GET();
-      http.begin(content_fw_upgrade_link, fw_link);
       content_fw_upgrade_link = http.getString();
     }
     http.end();
@@ -328,5 +329,5 @@ void OTA_https_upgrate() {
 
     ESP.restart();
   }
-  //END - Upgrade FW
+  //END - Update FW
 }

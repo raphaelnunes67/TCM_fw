@@ -1,7 +1,7 @@
 /*
   ****************************************
               Driver_MQTT.h
-   Script para ESP8266MOD (Cisterna)
+   Script para ESP8266MOD (Caixa D'água)
    Autor: Raphael Nunes
    E-mail: raphaelnunes67@gmail.com
   ****************************************
@@ -53,7 +53,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 #endif
  
 
-  if (cb_message == "OPEN"){CommandSolenoid  (false);}
+  if (cb_message == "OPEN"){CommandSolenoid(false);}
   
   else if (cb_message == "CLOSE"){CommandSolenoid(true);}
   
@@ -61,7 +61,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   
   else if (cb_message == "GS"){ESP_Sleep();}
   
-  else if (cb_message == "VAU"){OTA_https_upgrade();}
+  else if (cb_message == "OTA"){OTA_https_update();}
   
   else if (cb_message == "SI"){Send_system_info();}
   
@@ -103,13 +103,13 @@ void initMQTT() {
 #ifdef DEBUG
   Serial.println("Tentando se conectar ao Broker... ");
 #endif
-  while (client.connect("SMCC-master", mqtt_login, mqtt_pass) == false) {
+  while (client.connect("TCM-master", mqtt_login, mqtt_pass) == false) {
     MQTTBlinkLED(MQTT_LED_pin);
     ArduinoOTA.handle();
     count = millis() - timer;
     if (count > try_connect_ms) { // Tries to reconnect for 2 minutes
       Set_Timer = true;
-      ConfigureSMCC();
+      ConfigureTCM();
     }
     reconnectWIFI();
   }
@@ -119,7 +119,7 @@ void initMQTT() {
 #endif
   Send_system_info();
   digitalWrite(MQTT_LED_pin, LOW);
-  client.publish("TEST/SMCC", "System ON!");
+  client.publish("test/TCM", "System ON!");
   delay(500);
   client.subscribe(topic_subs);
 

@@ -32,7 +32,7 @@ void initWIFI() {
     count = millis() - timer;
     if (count > try_connect_ms) {
       Set_Timer = true;
-      ConfigureSMCC();
+      ConfigureTCM();
     }
   }
   digitalWrite(WIFI_LED_pin, LOW);
@@ -64,7 +64,7 @@ void reconnectWIFI() {
       count = millis() - timer;
       if (count > try_connect_ms) {
         Set_Timer = true;
-        ConfigureSMCC();
+        ConfigureTCM();
       }
     }
     digitalWrite(WIFI_LED_pin, LOW);

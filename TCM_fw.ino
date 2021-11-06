@@ -1,23 +1,25 @@
 /*
   ****************************************
-                 SMCCD_main.ino
+               TCM_fw.ino
    Script para ESP8266MOD (Caixa D'água)
    Autor: Raphael Nunes
    E-mail: raphaelnunes67@gmail.com
   ****************************************
 */
-//# Define DEBUG
+#define DEBUG
 //Includes
+
 #include "Libraries.h"
 #include "GeneralDefinitions.h"
 #include "Interruptions.h"
 #include "Sleep_Functions.h"
 #include "SimpleBlink.h"
-#include "Driver_ConfigSMCCD.h"
+#include "Driver_ConfigTCM.h"
 #include "Driver_RWS.h"
 #include "Driver_WIFI.h"
-#include "OTA_Upgrade.h"
+#include "OTA_Update.h"
 #include "Driver_MQTT.h"
+
 
 void setup() {
 #ifdef DEBUG
@@ -31,7 +33,7 @@ void setup() {
   SetInterrupt(); //Defines interrupt routines (Factory reset)
   VerifyConfigJSON(); // Checks whether registration data is saved in the file system
   initWIFI(); //Starts WIFI 
-  OTA_arduino_upgrade(); //Enables updating via Arduino IDE
+  OTA_arduino_update(); //Enables updating via Arduino IDE
   initMQTT();//Starts MQTT comunication
 }
 

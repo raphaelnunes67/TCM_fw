@@ -1,6 +1,6 @@
 /*
   ****************************************
-           Driver_ConfigSMCCD.h
+           Driver_ConfigTCM.h
    Script para ESP8266MOD (Caixa D'água)
    Autor: Raphael Nunes
    E-mail: raphaelnunes67@gmail.com
@@ -10,7 +10,7 @@
 // Save data in FS
 void SaveData(String ssid, String password, String br_add, String port, String br_usr, String br_pass, String subs, String pubs) {
   DynamicJsonDocument doc (512);
-  String input = "{}"; 
+  String input = "{}";
   deserializeJson(doc, input);
   JsonObject obj = doc.as<JsonObject>();
   obj[String("ssid")] = ssid;
@@ -26,7 +26,7 @@ void SaveData(String ssid, String password, String br_add, String port, String b
   file = SPIFFS.open("/register_config.json", "w"); // Save the Network and MQTT definitions
   file.print(output);
   file.close();
-  
+
 #ifdef DEBUG
   file = SPIFFS.open("/register_config.json", "r"); // Modo de leitura para printar os dados
   Serial.printf("Nome: %s - %u bytes\n", file.name(), file.size());
@@ -120,9 +120,9 @@ void handleLogin() {
       content = file.readString();
       file.close();
       server.send(200, "text/html", content);
-      #ifdef DEBUG
+#ifdef DEBUG
       Serial.println("Dados enviados com sucesso...");
-      #endif
+#endif
       SaveData(ssid, password, br_add, port, br_usr, br_pass, subs, pubs);
       delay(5000);
       ESP.restart();
@@ -149,7 +149,7 @@ void handleNotFound() {
   server.send(404, "text/plain", message);
 }
 
-void ConfigureSMCC() {
+void ConfigureTCM() {
 
   digitalWrite(WIFI_LED_pin, LOW);
   digitalWrite(MQTT_LED_pin, HIGH);
@@ -157,7 +157,7 @@ void ConfigureSMCC() {
   delay(1000);
   WiFi.mode(WIFI_AP);
   WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
-  WiFi.softAP("Configure_SMCCD");
+  WiFi.softAP("Configure_TCM");
   dnsServer.start(DNS_PORT, "*", apIP);
 #ifdef DEBUG
   Serial.println("Acess Point iniciado!");
@@ -198,7 +198,7 @@ void VerifyConfigJSON() {
 #ifdef DEBUG
     Serial.println("\nArquivo \'register_config.json\' não existe");
 #endif
-    ConfigureSMCC();
+    ConfigureTCM();
   }
   else {
 #ifdef DEBUG
